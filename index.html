@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flash Player POC</title>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      text-align: center;
+    }
+    #flashContainer {
+      margin-top: 2em;
+      display: flex;
+      justify-content: center;
+    }
+    input[type="file"] {
+      padding: 0.5em;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flash Player (Ruffle Proof of Concept)</h1>
+  <p>Upload a .swf file to play it below:</p>
+  <input type="file" id="swfUploader" accept=".swf" />
+  <div id="flashContainer"></div>
+
+  <script>
+    const uploader = document.getElementById('swfUploader');
+    const container = document.getElementById('flashContainer');
+
+    uploader.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file || !file.name.endsWith('.swf')) {
+        alert("Please upload a valid .swf file.");
+        return;
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const blob = new Blob([arrayBuffer], { type: 'application/x-shockwave-flash' });
+      const blobUrl = URL.createObjectURL(blob);
+
+      const rufflePlayer = window.RufflePlayer.newest();
+      const player = rufflePlayer.createPlayer();
+      container.innerHTML = '';
+      container.appendChild(player);
+      player.load(blobUrl);
+    });
+  </script>
+</body>
+</html>
