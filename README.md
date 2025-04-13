@@ -4,7 +4,7 @@ This is a lightweight proof-of-concept web app for rendering old `.swf` (Adobe F
 
 ## 🚀 Live Demo
 
-[Click here to try it live]((https://shane-aktiga.github.io/flashplayer-poc/))
+[Click here to try it live](https://shane-aktiga.github.io/flashplayer-poc/)
 
 
 ## 🧠 What It Does
